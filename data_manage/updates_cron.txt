@@ -1,0 +1,8 @@
+*/10 * * * * /usr/bin/php /var/www/bh/data_manage/updateAustralia.php
+*/10 * * * * /usr/bin/php /var/www/bh/data_manage/updateSpain.php
+*/10 * * * * /usr/bin/php /var/www/bh/data_manage/updatePoland.php
+* */3 * * * /usr/bin/php /var/www/bh/data_manage/updateEngland.php
+* */3 * * * /usr/bin/php /var/www/bh/data_manage/updateFrance.php
+* */3 * * * /usr/bin/php /var/www/bh/data_manage/updateItaly.php
+* */3 * * * /usr/bin/php /var/www/bh/data_manage/updateScotland.php
+* */3 * * * /usr/bin/php /var/www/bh/data_manage/updateTurkey.php

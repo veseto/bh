@@ -1,0 +1,57 @@
+bugs
+-----
+1. france 2: излизат мачове с (4), а реално са (3) - done (check on next update)
+2. empty rows in series.php
+3. (done) Notice: Undefined index: spain.gif in /var/www/bh/livescore.php on line 83 (spain)
+
+
+tasks
+-----
+1. (done) ppm
+2. money
+	2.1 въвеждане на депозит (deposit)
+	2.2 въвеждане на теглене (withdrawal)
+	2.3 бонус от букмейкър
+	2.4 такси, комисионни (банка и др)
+3. (done) филтър по колона
+5. (done) отделяме всички останали сезони в history.php, а fixtures + класиране остават, където сега си е fixtures
+6. (done) оптимизиране на php (date_default_timezone_set('Europe/Sofia');) и др.
+7. (done) standings над таблиците във fixtures
+8. http://github.hubspot.com/tether/
+9. (done)+: last 15 games + bold on the 'active' team
+10. (done) current standing for teams in PPS view
+11. (done) за изследване франция 3 + последните сезони на всички долу
+12. добави другата половина от мексико
+13. добави дания + русия в PPM
+14. ppm испания: серията почва всеки кръг от (1) и спира при първия равен
+15. оцветяване на двоен мач
+16. pps - числото на серията да е червено
+---
+4. search по серия (MILAN (
+
+
+(done)За изследване (последни 10 сезона)
+australia
+poland
+denmark
+russia 1
+russia 2
+belgium
+france 3
+italy 3
+
+PPM
+(done)australia
+(done)poland
+denmark
+russia 1
+(done)spain 1
+
+PPS
+mexico
+australia
+poland
+denmark
+belgium
+russia 2
+italy 3

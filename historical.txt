@@ -1,0 +1,14 @@
+deposits
+4 x 100€ (check bank statement)
+
+bonus
+50€ initial
+25€ mobile
+5€ loyalty
+
+12/23/13	22:00	Arsenal	-	Chelsea (6)	10	10	4.50	45	35	да	>11 corners
+1/5/14	17:00	Dundee United (8)	-	Hibernian	5	5	3.30	16.5	11.5	да	(8) not supported
+______
+1/4/14		Ross County (7)	-	St Johnstone	3	NO					
+1/11/14	17:00	Partick	-	Ross County (8)	5	5	3.30	16.5	8.5		(8) not supported
+------

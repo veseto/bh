@@ -1,0 +1,125 @@
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+body {
+  padding-top: 50px;
+}
+
+/* Wrapper for page content to push down footer */
+#wrap {
+  min-height: 100%;
+  height: auto;
+  /* Negative indent footer by its height */
+  margin: 0 auto -30px;
+  /* Pad bottom by footer height */
+  padding: 0 0 30px;
+}
+
+/* Set the fixed height of the footer here */
+#footer {
+  height: 30px;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: none !important;
+  width: 1270px;
+}
+
+.navbar {
+  min-height: 35px !important;
+  padding-top: 2px !important;
+  margin-bottom: 0px !important;
+}
+
+.navbar-nav {
+  margin: 0px !important;
+}
+
+.navbar-nav .padded {
+  padding-right: 2px;
+}
+
+.navbar-nav > li > a {
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+ 	color: #eee !important;
+}
+
+.unplayedGamesNumber {
+  color: #F2A176;
+}
+
+#navBtns {
+	margin:0;
+	padding:0;
+	font-size: 19px;
+	width: 110px;
+}
+
+
+.navbar-brand {
+  padding: 6px 0px 0px 0px !important;
+  margin: 0px 10px 0px 5px !important;
+  font-size: 15px !important;
+  color: #eee !important;
+}
+
+table th {
+  text-align: center !important;
+  font-size: 80%;
+}
+
+ul.filters li {
+  height: 18px;
+  font-size: 80%;
+  margin: 0px;
+  padding: 0px;
+}
+
+table th input, table td input {
+  margin: 0px;
+  padding: 0px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 12px;
+  text-align: center;
+}
+
+table th img, table td img {
+  margin: 0px 0px 3px 0px;
+}
+
+.shortInput {
+	width: 40px;
+	border: 1px solid #c0c0c0;
+	text-align: center;
+}
+
+img.pullup {
+  padding-bottom: 5px;
+}
+
+.btn-series-wdl {
+  width: 23px;
+}
+
+.noPaddingMargin {
+	margin: 0px;
+	padding: 0px;
+}
+
+.livescore1HF {
+  background-color: #F2D694;
+}
+
+.livescore2HF {
+  background-color: #FBB829;
+}
+
+.livescoreScore {
+  background-color: #CDD7B6;
+}

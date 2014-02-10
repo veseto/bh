@@ -1,0 +1,36 @@
+[15-Jan-2014 09:55:38 UTC] PHP Warning:  PHP Startup: eAccelerator: Unable to initialize module
+Module compiled with module API=20060613
+PHP    compiled with module API=20100525
+These options need to match
+ in Unknown on line 0
+[15-Jan-2014 09:55:38 UTC] PHP Warning:  include(/home/fefe/public_html/datatables/mysql.php): failed to open stream: No such file or directory in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php on line 24
+[15-Jan-2014 09:55:38 UTC] PHP Warning:  include(): Failed opening '/home/fefe/public_html/datatables/mysql.php' for inclusion (include_path='.:/usr/local/php5.4/lib/php') in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php on line 24
+[15-Jan-2014 09:55:38 UTC] PHP Warning:  mysql_pconnect(): Access denied for user 'fefe'@'localhost' (using password: NO) in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php on line 45
+[15-Jan-2014 09:55:38 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php:24) in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php on line 37
+[15-Jan-2014 09:56:23 UTC] PHP Warning:  PHP Startup: eAccelerator: Unable to initialize module
+Module compiled with module API=20060613
+PHP    compiled with module API=20100525
+These options need to match
+ in Unknown on line 0
+[15-Jan-2014 09:56:23 UTC] PHP Warning:  include(/home/fefe/public_html/datatables/mysql.php): failed to open stream: No such file or directory in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php on line 24
+[15-Jan-2014 09:56:23 UTC] PHP Warning:  include(): Failed opening '/home/fefe/public_html/datatables/mysql.php' for inclusion (include_path='.:/usr/local/php5.4/lib/php') in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php on line 24
+[15-Jan-2014 09:56:23 UTC] PHP Warning:  mysql_pconnect(): Access denied for user 'fefe'@'localhost' (using password: NO) in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php on line 45
+[15-Jan-2014 09:56:23 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php:24) in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/server_processing.php on line 37
+[15-Jan-2014 12:07:43 UTC] PHP Warning:  PHP Startup: eAccelerator: Unable to initialize module
+Module compiled with module API=20060613
+PHP    compiled with module API=20100525
+These options need to match
+ in Unknown on line 0
+[15-Jan-2014 12:07:43 UTC] PHP Warning:  include(/home/fefe/public_html/datatables/mysql.php): failed to open stream: No such file or directory in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php on line 24
+[15-Jan-2014 12:07:43 UTC] PHP Warning:  include(): Failed opening '/home/fefe/public_html/datatables/mysql.php' for inclusion (include_path='.:/usr/local/php5.4/lib/php') in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php on line 24
+[15-Jan-2014 12:07:43 UTC] PHP Warning:  mysql_pconnect(): Access denied for user 'fefe'@'localhost' (using password: NO) in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php on line 45
+[15-Jan-2014 12:07:43 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php:24) in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php on line 37
+[15-Jan-2014 12:08:14 UTC] PHP Warning:  PHP Startup: eAccelerator: Unable to initialize module
+Module compiled with module API=20060613
+PHP    compiled with module API=20100525
+These options need to match
+ in Unknown on line 0
+[15-Jan-2014 12:08:14 UTC] PHP Warning:  include(/home/fefe/public_html/datatables/mysql.php): failed to open stream: No such file or directory in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php on line 24
+[15-Jan-2014 12:08:14 UTC] PHP Warning:  include(): Failed opening '/home/fefe/public_html/datatables/mysql.php' for inclusion (include_path='.:/usr/local/php5.4/lib/php') in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php on line 24
+[15-Jan-2014 12:08:14 UTC] PHP Warning:  mysql_pconnect(): Access denied for user 'fefe'@'localhost' (using password: NO) in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php on line 45
+[15-Jan-2014 12:08:14 UTC] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php:24) in /home/fefe/public_html/bh2/DataTables-1.9.4/examples/server_side/scripts/post.php on line 37
