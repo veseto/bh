@@ -13,8 +13,8 @@
 				 	 'GERMANY' => array('BUNDESLIGA', '2.+BUNDESLIGA', '3.+LIGA'),
 				 	 'FRANCE' => array('LIGUE+1', 'LIGUE+2', 'CHAMPIONNAT+NATIONAL'),
 				 	 'ITALY' => array('SERIE+A', 'SERIE+B'),
-				 	 'TURKEY' => array('SUPER+LIG'));
-				 	 //'MEXICO' => array('APERTURA'));
+				 	 'TURKEY' => array('SUPER+LIG'),
+				 	 'CROATIA' => array('DIVISION+1'));
 
 	// $leagues2 = array('1' => 'http://int.soccerway.com/national/england/premier-league/20132014/regular-season/r21322/', 
 	// 					'2' => 'http://int.soccerway.com/national/england/championship/20132014/regular-season/r21389/', 

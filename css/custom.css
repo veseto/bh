@@ -57,7 +57,7 @@ body {
 	margin:0;
 	padding:0;
 	font-size: 19px;
-	width: 110px;
+	width: 120px;
 }
 
 
@@ -122,4 +122,9 @@ img.pullup {
 
 .livescoreScore {
   background-color: #CDD7B6;
+}
+
+.doubleMatch {
+  border: 1px solid;
+  background-color: #EEEEEE;
 }

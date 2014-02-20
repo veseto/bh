@@ -13,7 +13,7 @@
 	//print_r($settings);
 	//foreach ($settings as $key => $value) {
 	$value=3;
-	$key=19;
+	// $key=27;
 		$res = $mysqli->query("SELECT DISTINCT homeTeam FROM matches where season='2013-2014' and leagueId=$key");
 		while($team = $res->fetch_array()) {
 			$mysqli->query("INsert into series (team, length, active, leagueId) values ('".$team[0]."', 1, 1, $key)");
@@ -29,7 +29,8 @@
 						$length = $mysqli->query("SELECT length from series where seriesId=$seriesId")->fetch_array()[0];
 						if ($length > $value) {
 							for ($i=1; $i<4; $i++) {
-								$mysqli->query("insert into playedMatches (userId, matchId, seriesId, odds, bet, ignored, currentLength, pps) values ($i, ".$match['matchId'].", ".$seriesId.", 3, 0, 0, ".$length.", 1)");
+								$mysqli->query("insert into playedMatches (userId, matchId, seriesId, odds, bet, ignored, currentLength, pps) 
+										values ($i, ".$match['matchId'].", ".$seriesId.", 3, 0, 0, ".$length.", 1)");
 							}
 						}
 						$previousHasResult = false;
@@ -46,12 +47,14 @@
 						$mysqli->query("update series set active=0 where seriesId=$seriesId");
 						$mysqli->query("INsert into series (team, length, active, leagueId) values ('".$team[0]."', 1, 1, $key)");
 					} 
+					$seriesId = $mysqli->query("select seriesId from series where team='".$team[0]."' and active=1")->fetch_array()[0];
 					$length = $mysqli->query("SELECT length from series where seriesId=$seriesId")->fetch_array()[0];
 					$l = $length-1;
 					if ($l > $value) {
 						for ($i=1; $i<4; $i++) {
 							echo "Match to play!";
-							$mysqli->query("insert into playedMatches (userId, matchId, seriesId, odds, bet, ignored, currentLength, pps) values ($i, ".$match['matchId'].", ".$seriesId.", 3, 0, 0, ".$l.", 1)");
+							$mysqli->query("insert into playedMatches (userId, matchId, seriesId, odds, bet, ignored, currentLength, pps) 
+								values ($i, ".$match['matchId'].", ".$seriesId.", 3, 0, 0, ".$l.", 1)");
 						}
 					}
 				}

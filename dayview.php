@@ -4,7 +4,6 @@
 if(!isset($_SESSION['uid'])) {
    header("Location: index.php");
  }
- $week = array(0=>'SUN', 1=>'MON', 2=>'TUE', 3=>'WED', 4=>'THU', 5=>'FRI', 6=>'SAT');
   $str = "";
   $getStr = "";
   if (isset($_GET['day'])) {
@@ -106,7 +105,7 @@ if(!isset($_SESSION['uid'])) {
 	        	$placeH = $mysqli->query("SELECT place FROM tables where leagueId=".$row['leagueId']." and team='".$row['homeTeam']."'")->fetch_array()[0];
 	        	$placeA = $mysqli->query("SELECT place FROM tables where leagueId=".$row['leagueId']." and team='".$row['awayTeam']."'")->fetch_array()[0];
 	        ?>
-	        <tr id="<?php echo $row['matchId'];?>">
+	        <tr id="<?php echo $row['matchId'];?>" class="<?php echo $row['matchId'];?>">
 			  <td class="center"><img src="dt/examples/examples_support/details_open.png"></td>	          
 			  <td><?php echo $i; ?></td>
 	          <td><?php echo $row['matchDate']; ?></td>
@@ -135,7 +134,7 @@ if(!isset($_SESSION['uid'])) {
 	          <td><?php echo $row['income']; ?></span></td>
 	          <td><?php echo $row['profit']; ?></td>
 	          <td><?php echo $row['result']; ?></td>
-	          <td><?php echo $row['resultShort']; ?></td>	         
+	          <td><?php echo $row['resultShort']." ".$row['seriesId']." ".$row['matchId']; ?></td>	         
 	          </tr>
 	        <?php
 	        $i ++;
@@ -143,6 +142,9 @@ if(!isset($_SESSION['uid'])) {
 	        ?>
 	      </tbody>
 	    </table>
+	<div class="pointer"> 
+		test tether
+	</div>
 	<script type="text/javascript">
 		var asInitVals = new Array();
 
@@ -176,7 +178,31 @@ if(!isset($_SESSION['uid'])) {
 		  	});
 		}
 
-		
+		$( "tbody>tr" ).hover(
+			function() {
+				var claz = $(this).attr('class');
+				var st = claz.split(' ');
+				var firstClass = st[0];
+
+				var id="."+firstClass;
+				//alert(id);
+				if ($(id).length > 1) {
+					$(id+">td").addClass("doubleMatch");
+				}
+				//$(id).attr("style", "color: red");
+				//$( this ).append( $( "<span> ***</span>" ) );
+			}, function() {
+				var claz = $(this).attr('class');
+				var st = claz.split(' ');
+				var firstClass = st[0];
+
+				var id="."+firstClass;
+				//alert(id);
+				$(id+">td").removeClass("doubleMatch");
+				//$(id).addClass("test");			
+			}
+		);
+
 	    $(document).ready(function() {	
 	    /* Init DataTables */
 		    var oTable = $('#scoreTable').dataTable({
@@ -302,6 +328,15 @@ if(!isset($_SESSION['uid'])) {
 				}
 			} );
 		} );
+
+		new Tether({
+          element: '.pointer',
+          attachment: 'middle right',
+          targetAttachment: 'middle left',
+          targetModifier: 'scroll-handle',
+          target: document.body
+        });
+
 	    </script>
 
 <?php

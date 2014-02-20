@@ -3,7 +3,10 @@
 	include("connection.php");
 	//print_r($_POST);
 	if (isset($_POST['note'])) {
-		$mysqli->query("update userSettings set notes='".$_POST['note']."' where userId=".$_SESSION['uid']);
+		if ($mysqli->query("update userSettings set notes='".$_POST['note']."' where userId=".$_SESSION['uid'])) {
+			//echo("<script>alert('Note successfully saved')</script>");
+			echo "<div id='msg'>Note successfully saved</div>";
+		}
 	}
 	$content = $mysqli->query("SELECT notes from userSettings where userId=".$_SESSION['uid'])->fetch_array()[0];
 ?>
@@ -15,6 +18,7 @@
 <!--     <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta name="description" content="">
     <meta name="author" content="">
+    <script src="dt/media/js/jquery-1.10.2.js"></script>
     <link rel="shortcut icon" sizes="16x16 32x32 48x48 64x64" href="favicon/favicon.ico">
     <link rel="shortcut icon" type="image/x-icon" href="favicon/favicon.ico">
     <title>bh</title>
@@ -66,6 +70,11 @@
 					tools: 		"inserttable",
 					insertdatetime_formats: ["%Y.%m.%d", "%H:%M"] 
 		        });
+		$(document).ready(function(){
+			setTimeout(function() {
+			    $('#msg').fadeOut('fast');
+			}, 1000); 
+		});
 		</script>
 		<form method='post' action='notes.php'>
 		<textarea name="note"><?=$content ?></textarea>
@@ -73,5 +82,6 @@
 		</form>
 		</div>
 	</div>
+
 </body>
 </html>

@@ -34,6 +34,7 @@
     <script src="dt/media/js/jquery-1.10.2.js"></script>
     <script src="dt/media/js/jquery-ui-1.10.4.custom.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/tether.js"></script>
 
     <!-- dataTables js -->
     <script type="text/javascript" language="javascript" src="dt/examples/examples_support/jquery.jeditable.js"></script>
@@ -54,6 +55,8 @@
 
   <body>
     <?php
+     $week = array(0=>'SUN', 1=>'MON', 2=>'TUE', 3=>'WED', 4=>'THU', 5=>'FRI', 6=>'SAT');
+
       include("connection.php");
       $ppm = "ppm";
       $pps = "today";
@@ -61,6 +64,9 @@
       $notPlayedPPM = 0;
       $allPPS = 0;
       $allPPM = 0;
+      $livescoreAll = 0;
+      $livescoreCurr = 0;
+        
       if (isset($_SESSION['uid'])) {
         $d = date("Y-m-d", time());
         $t = date("H:i", time());
@@ -92,6 +98,22 @@
               where (matchDate>'$d' or (matchDate='$d' and matchTime>='$t')) and (matchDate<'$d1' or (matchDate='$d1' and matchTime<='$t1')) and pps=0 and userId=".$_SESSION['uid'])->fetch_array()[0];
         $ppm = "ppm $notPlayedPPM/$allPPM";
         $pps = "today $notPlayedPPS/$allPPS";
+
+        $startTime = date("H:i:s", time()-60*110);
+        $endTime = date("H:i:s", time());
+
+
+        $livescoreCurr = $mysqli->query("SELECT count(*)
+              from playedMatches 
+              left join matches 
+              on matches.matchId = playedMatches.matchId
+              where matchDate='$d' and matchTime>='$startTime' and matchTime<='$endTime' and (userId=".$_SESSION['uid']." and (bet>0 or betSoFar>0))")->fetch_array()[0];
+         $livescoreAll = $mysqli->query("SELECT count(*)
+              from playedMatches 
+              left join matches 
+              on matches.matchId = playedMatches.matchId
+              where matchDate='$d' and (userId=".$_SESSION['uid']." and (bet>0 or betSoFar>0))")->fetch_array()[0];
+        echo $mysqli->error;
       }
     ?>
     <!-- Fixed navbar -->
@@ -103,21 +125,21 @@
             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
                <li class="dropdown-header">next</li>
-               <li><a href="dayview.php?day=2">2 days</a></li>
-               <li><a href="dayview.php?day=3">3 days</a></li>
-               <li><a href="dayview.php?day=4">4 days</a></li>
-               <li><a href="dayview.php?day=5">5 days</a></li>
-               <li><a href="dayview.php?day=6">6 days</a></li>
-               <li><a href="dayview.php?day=7">7 days</a></li>
+               <li><a href="dayview.php?day=2">2 days (<?php echo date("d.m", time()+86400)." ".$week[date("w", time()+86400)];?>)</a></li>
+               <li><a href="dayview.php?day=3">3 days (<?php echo date("d.m", time()+2*86400)." ".$week[date("w", time()+2*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=4">4 days (<?php echo date("d.m", time()+3*86400)." ".$week[date("w", time()+3*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=5">5 days (<?php echo date("d.m", time()+4*86400)." ".$week[date("w", time()+4*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=6">6 days (<?php echo date("d.m", time()+5*86400)." ".$week[date("w", time()+5*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=7">7 days (<?php echo date("d.m", time()+6*86400)." ".$week[date("w", time()+6*86400)];?>)</a></li>
                <li><a href="dayview.php?day=all">all available</a></li>
                <li class="divider"></li>
                <li class="dropdown-header">previous</li>
-               <li><a href="dayview.php?day=-1">-1 days</a></li>
-               <li><a href="dayview.php?day=-2">-2 days</a></li>
-               <li><a href="dayview.php?day=-3">-3 days</a></li>
-               <li><a href="dayview.php?day=-5">-5 days</a></li>
-               <li><a href="dayview.php?day=-10">-10 days</a></li>
-               <li><a href="dayview.php?day=-15">-15 days</a></li>
+               <li><a href="dayview.php?day=-1">-1 days (<?php echo date("d.m", time()-86400)." ".$week[date("w", time()-86400)];?>)</a></li>
+               <li><a href="dayview.php?day=-2">-2 days (<?php echo date("d.m", time()-2*86400)." ".$week[date("w", time()-2*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=-3">-3 days (<?php echo date("d.m", time()-3*86400)." ".$week[date("w", time()-3*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=-5">-5 days (<?php echo date("d.m", time()-4*86400)." ".$week[date("w", time()-4*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=-10">-10 days (<?php echo date("d.m", time()-9*86400)." ".$week[date("w", time()-9*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=-15">-15 days (<?php echo date("d.m", time()-14*86400)." ".$week[date("w", time()-14*86400)];?>)</a></li>
             </ul>
           </div></li>
           <li class="padded"><div class="btn-group">
@@ -125,22 +147,22 @@
             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
                <li class="dropdown-header">next</li>
-               <li><a href="ppm.php?day=5">5 days</a></li>
-               <li><a href="ppm.php?day=10">10 days</a></li>
-               <li><a href="ppm.php?day=20">20 days</a></li>
+               <li><a href="ppm.php?day=5">5 days (<?php echo date("d.m", time()+4*86400)." ".$week[date("w", time()+4*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=10">10 days (<?php echo date("d.m", time()+9*86400)." ".$week[date("w", time()+9*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=20">20 days (<?php echo date("d.m", time()+19*86400)." ".$week[date("w", time()+19*86400)];?>)</a></li>
                <li><a href="ppm.php?day=all">all available</a></li>
                <li class="divider"></li>
                <li class="dropdown-header">previous</li>
-               <li><a href="ppm.php?day=-1">-1 days</a></li>
-               <li><a href="ppm.php?day=-2">-2 days</a></li>
-               <li><a href="ppm.php?day=-3">-3 days</a></li>
-               <li><a href="ppm.php?day=-5">-5 days</a></li>
-               <li><a href="ppm.php?day=-10">-10 days</a></li>
-               <li><a href="ppm.php?day=-15">-15 days</a></li>
+               <li><a href="ppm.php?day=-1">-1 days (<?php echo date("d.m", time()-86400)." ".$week[date("w", time()-86400)];?>)</a></li>
+               <li><a href="ppm.php?day=-2">-2 days (<?php echo date("d.m", time()-2*86400)." ".$week[date("w", time()-2*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=-3">-3 days (<?php echo date("d.m", time()-3*86400)." ".$week[date("w", time()-3*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=-5">-5 days (<?php echo date("d.m", time()-4*86400)." ".$week[date("w", time()-4*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=-10">-10 days (<?php echo date("d.m", time()-9*86400)." ".$week[date("w", time()-9*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=-15">-15 days (<?php echo date("d.m", time()-14*86400)." ".$week[date("w", time()-14*86400)];?>)</a></li>
             </ul>
           </div></li>
           <li class="padded"><div class="btn-group">
-            <button onclick="location.href='livescore.php?played=true'" type="button" class="btn btn-primary btn-sm" id="navBtns">livescore</button>
+            <button onclick="location.href='livescore.php?played=true'" type="button" class="btn btn-primary btn-sm" id="navBtns"><span  style="font-size: 90%;">livescore <?=$livescoreCurr ?>/<?=$livescoreAll?></span></button>
             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
                <li><a href="livescore.php">leagues</a></li>
@@ -189,6 +211,7 @@
           }
           ?>
         </ul>
+        <li><p class="navbar-text pull-right" style="margin: 0px; padding-top: 4px;">test</p></li>
       </div>
     </div>
     

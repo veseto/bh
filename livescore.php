@@ -45,6 +45,7 @@
 				'italy.gif'=>array('A'=>'A', 'B'=>'B'), 
 				'australia.gif'=>array('D1'=>'AL'), 
 				'spain.gif'=>array('PD'=>'PD'), 
+				'poland.gif'=>array('D1'=>'D1'), 
 				'france.gif'=>array('L1'=>'L1', 'L2'=>'L2'));
 
  	$data = file_get_contents("http://www.xscores.com/soccer/soccer.jsp?sports=soccer&flag=sportData#.Ut5V72T8K2w");
@@ -89,10 +90,10 @@
 			$match = $res->fetch_assoc();
 			if ($match['bet'] > 0){
 				$inPlayed=true;
-				$bet = $bet0 = $match['bet']."@".$match['odds'];
+				$bet = $bet0 = $match['income']."/".$match['profit'];
 			}
 			if ($match2 = $res->fetch_assoc()) {
-				$bet1 =  $match2['bet']."@".$match2['odds'];
+				$bet1 =  $match2['income']."/".$match2['profit'];
 				if ($match['homeTeam'] == $match['team']) {
 					$bet = $bet0." | ".$bet1;
 				} else if ($match['awayTeam'] === $match['team']) {

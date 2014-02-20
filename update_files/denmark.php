@@ -184,7 +184,7 @@
 		if ($match) {
 			//echo $match['length']." > ".$settings[$match['leagueId']]."<br>";
 			if ($match['length'] > $settings[$match['leagueId']]) {
-				$q2="SELECT count(*) from playedMatches where matchId=".$match['matchId']." and seriesId=".$match['seriesId'];
+				$q2="SELECT count(*) from playedMatches where matchId=".$match['matchId']." and pps=1 and seriesId=".$match['seriesId'];
 				if ($mysqli->query($q2)->fetch_array()[0] === '0') {
 					$q4="select * from matches left join (playedMatches, series) on (playedMatches.matchId=matches.matchId and series.seriesId=playedMatches.seriesId) where resultShort='-' and userId=1 and playedMatches.seriesId=".$serie['seriesId'];
 					//echo "$q4<br>";

@@ -21,7 +21,7 @@
 			echo "$leagueId<br>";
 			$lg = $leagueName;
 
-				$data1 = file_get_contents("http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=$key&leagueName=$value&leagueName1=$value&seasonName=2013%2F2014&sortBy=R&result=3#.Us6_JvQW3zg");
+				$data1 = file_get_contents("http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=$key&leagueName=$value&seasonName=2013%2F2014&sortBy=R&result=3#.Us6_JvQW3zg");
 
 			$dom1 = new domDocument;
 
@@ -39,7 +39,7 @@
 				$n = $firstRound + $j;
 				$round = $j + 1;
 			// 	//echo "Round ".$j."<br>";
-			 	$data = file_get_contents("http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=$key&leagueName=$value&leagueName1=$value&seasonName=2013%2F2014&sortBy=R&round=$n&result=3#.Us6_JvQW3zg");
+			 	$data = file_get_contents("http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=$key&leagueName=$value&seasonName=2013%2F2014&sortBy=R&round=$n&result=3#.Us6_JvQW3zg");
 
 				$dom = new domDocument;
 
@@ -173,7 +173,7 @@
 		}
 	}
 
-	$leagueId = 19;
+	$leagueId = 18;
 	$res = $mysqli->query("SELECT * from series where active=1 and leagueId=$leagueId");
 	while ($serie = $res->fetch_assoc()) {
 		$q1 = "SELECT * FROM `matches` 
@@ -182,12 +182,12 @@
 		$res2 = $mysqli->query($q1);
 		$match = $res2->fetch_assoc();
 		if ($match) {
-			//echo $match['length']." > ".$settings[$match['leagueId']]."<br>";
+			// echo $match['length']." > ".$settings[$match['leagueId']]."<br>";
 			if ($match['length'] > $settings[$match['leagueId']]) {
-				$q2="SELECT count(*) from playedMatches where matchId=".$match['matchId']." and seriesId=".$match['seriesId'];
+				$q2="SELECT count(*) from playedMatches where matchId=".$match['matchId']." and pps=1 and seriesId=".$match['seriesId'];
 				if ($mysqli->query($q2)->fetch_array()[0] === '0') {
 					$q4="select * from matches left join (playedMatches, series) on (playedMatches.matchId=matches.matchId and series.seriesId=playedMatches.seriesId) where resultShort='-' and userId=1 and playedMatches.seriesId=".$serie['seriesId'];
-					//echo "$q4<br>";
+					echo "$q4<br>";
 					$tmp = $mysqli->query($q4);
 					if ($tmp->num_rows) {
 						$old = $tmp->fetch_assoc();
@@ -196,11 +196,11 @@
 					$updatedMatchesToPlay ++;
 					for ($i = 1; $i < 4; $i ++) {
 						$q5="SELECT betSoFar, bet FROM playedMatches left join matches on matches.matchId=playedMatches.matchId where userId=$i and seriesId=".$serie['seriesId']." and state='Fin' order by matchDate desc, matchTime desc limit 1";
-						echo "$q5 ";
+						// echo "$q5 ";
 						$a = $mysqli->query($q5)->fetch_array();
 						$betSoFar = $a[0] + $a[1];
-						echo "    $betSoFar <br>";
-						$q7="INSERT INTO playedMatches (userId, matchId, currentLength, odds, bet, ignored, seriesId, betSoFar) values ($i, ".$match['matchId'].", ".$serie['length'].", 3, 0, 0, ".$match['seriesId'].", '$betSoFar')";
+						// echo "    $betSoFar <br>";
+						$q7="INSERT INTO playedMatches (userId, matchId, currentLength, odds, bet, ignored, seriesId, betSoFar, pps) values ($i, ".$match['matchId'].", ".$serie['length'].", 3, 0, 0, ".$match['seriesId'].", '$betSoFar', 1)";
 						$mysqli->query($q7);
 						echo $mysqli->error;
 					}

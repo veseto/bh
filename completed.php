@@ -23,22 +23,29 @@
               </thead>
               <tbody>
                 <?php 
-                $q = "select distinct playedMatches.seriesId
+                $q = "select *
                       from playedMatches left join (matches, series, leagueDetails) 
                       on (playedMatches.matchId=matches.matchId and series.seriesId=playedMatches.seriesId and matches.leagueId=leagueDetails.leagueId) 
-                      where userId=".$_SESSION['uid']." and active=0 and (bet>0 or betSoFar>0) order by matchDate desc, series.length desc, matches.leagueId asc, series.team asc";
+                      where userId=".$_SESSION['uid']." and (bet>0 or betSoFar>0) and resultShort='D' order by matchDate desc, matchTime desc";
                 $res = $mysqli->query($q);
+                
                 $i = 1;
-                while ($s = $res->fetch_assoc()) {
+                while ($match = $res->fetch_array()) {
+                    // $res2 = $mysqli -> query("SELECT * FROM playedMatches 
+                    //     left join (matches, leagueDetails, series) 
+                    //     on (matches.matchId=playedMatches.matchId and leagueDetails.leagueId=matches.leagueId and series.seriesId=playedMatches.seriesId)
+                    //     where playedMatches.seriesId=".$s[0]." and userId=".$_SESSION['uid']." and resultShort='D' and (betSoFar>0 or bet>0) order by matchDate desc");
+                    // echo $mysqli->error;
+                    // $match = $res2->fetch_assoc();
                 ?>
                 <tr>
                   <td><?=$i ?></td>
-                  <td><?=$s['matchDate'] ?></td>
-                  <td><img src="img/<?=$s['country'] ?>.png"> <?=$s['displayName'] ?></td>
-                  <td><?=$s['team'] ?></td>
-                  <td><?=$s['income'] ?> €</td>
-                  <td><?=$s['profit'] ?> €</td>
-                  <td><a href="seriesdetails.php?series=<?=$s['seriesId'] ?>">View</strong></a><br></td>
+                  <td><?=$match['matchDate'] ?></td>
+                  <td><img src="img/<?=$match['country'] ?>.png"> <?=$match['displayName'] ?></td>
+                  <td><?=$match['team'] ?></td>
+                  <td><?=$match['income'] ?> €</td>
+                  <td <?php if ($match['profit'] < 0) echo "class='livescore1HF'";?>><?=$match['profit'] ?> €</td>
+                  <td><a href="seriesdetails.php?series=<?=$match['seriesId'] ?>">View</strong></a><br></td>
                 </tr>
                 <?php 
                   $i ++;

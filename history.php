@@ -15,11 +15,13 @@
 		if (array_key_exists($row['leagueId'], $settings)) {
 			$badge = $settings[$row['leagueId']] + 1;
 		}
+		$name = $row['country']."/".$row['name'];
 ?>
 	<div class="col-md-3">
     <ul class="list-group">
       <li class="list-group-item">
-        <img src="img/<?=$row['country']?>.png" class="pullup" /> <span class="badge"><?=$badge ?></span><a href="<?php echo "historydetails.php?league=".$row['leagueId']; ?>"><?=$row['name']?></a>
+        <img src="img/<?=$row['country']?>.png" class="pullup" /> <span class="badge"><?=$badge ?></span>
+        <a href="<?php echo "historydetails.php?league=".$row['leagueId']; ?>"><?=$name ?></a>
       </li>
     </ul>
   </div>

@@ -1,10 +1,16 @@
 <?php
+  //1 - deposit
+  //2 - withdawal
+  //3 - bonus
+  //4 - tax
   if ($_GET['tab'] === 'dep') {
     $type = 1;
     $heading = "Deposits <small>(in €)</small>";
+    $typeH = "Bonus";
   } else if ($_GET['tab'] === 'wit') {
     $type = 2;
     $heading = "Cashouts <small>(in €)</small>";
+    $typeH = "Tax";
   }
   $tab = $_GET['tab'];
 ?>
@@ -18,6 +24,7 @@
                       <th style="width: 15%">Time</th>
                       <th style="width: 50%">Source</th>
                       <th style="width: 15%">Amount</th>
+                      <th style="width: 20%"><?=$typeH?></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -30,6 +37,7 @@
                       <td class="editable"><?php echo substr($dep['tTime'], 0, -3); ?></td>
                       <td class="editable"><?=$dep['source']?></td>
                       <td class="editable"><?=$dep['amount']?></td>
+                      <td><input type="checkbox" class="checkbox"></td>
                     </tr>
                   <?php
                     }
@@ -39,10 +47,27 @@
               </div>
             </div> <!-- // deposits -->
             <script>
+            $(".checkbox").change(function(){
+              if (this.checked) {
+                $.ajax({ url: 'savemoney.php?tab=<?=$tab?>&run=check',
+                   data: {checked: 'true', id: $(this).parent().parent().attr("id")},
+                   type: 'post', 
+                   success: function(output) {
+                      alert(output);
+                  }
+              });
+              } else {
+                $.ajax({ url: 'savemoney.php?tab=<?=$tab?>&run=check',
+                   data: {checked: 'false', id: $(this).parent().parent().attr("id")},
+                   type: 'post'
+                });               
+              }
+            });
+
             $(document).ready(function() {  
       /* Init DataTables */
         var oTable = $('#deposits').dataTable({
-              "iDisplayLength": 5,
+              "iDisplayLength": 10,
               "bJQueryUI": true,
               "sPaginationType": "full_numbers",
               "sDom": '<"top" lf><"toolbar">irpti<"bottom"pT><"clear">',
@@ -74,8 +99,6 @@
             "height": "90%",
             "width": "90%"
         } );
-
-      
     } );
 
   </script>

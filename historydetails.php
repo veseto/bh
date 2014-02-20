@@ -7,7 +7,7 @@
   if(isset($_GET["league"])) {
     $league = $_GET['league'];
     // $season = str_replace("/", "-", $_GET['season']);
-    $q = "SELECT * FROM matches left join leagueDetails on (matches.leagueId = leagueDetails.leagueId) where matches.leagueId='$league' and season<>'2013-2014' ORDER BY matchDate ASC, matchTime ASC";
+    $q = "SELECT * FROM history left join leagueDetails on (history.leagueId = leagueDetails.leagueId) where history.leagueId='$league' ORDER BY mdate ASC";
    // echo $q;
     $res = $mysqli->query($q);
     echo $mysqli->error;
@@ -18,7 +18,6 @@
         <tr>
           <th><input type="hidden"></th>
           <th><input type="text" name="search_engine" class="search_init shortInput" placeholder="date"></th>
-          <th><input type="text" name="search_engine" class="search_init shortInput" placeholder="time"></th>
           <th><input type="text" name="search_engine" class="search_init shortInput" placeholder="league"></th>
           <th><input type="text" name="search_engine" class="search_init shortInput" placeholder="home"></th>
           <th><input type="hidden"></th>
@@ -30,7 +29,6 @@
         <tr>
           <th>#</th>
           <th>Date</th>
-          <th>Time</th>
           <th>League</th>
           <th>Home Team</th>
           <th>-</th>
@@ -48,14 +46,13 @@
         ?>
         <tr>
           <td><?php echo $i;?></td>
-          <td><?php echo $row['matchDate']; ?></td>
-          <td><?php echo substr($row['matchTime'], 0, -3); ?></td>
+          <td><?php echo $row['mdate']; ?></td>
           <td><img src="img/<?=$row['country'] ?>.png"/> <?php echo $row['displayName']; ?></td>
-          <td><?php echo $row['homeTeam']; ?></td>
+          <td><?php echo $row['home']; ?></td>
           <td>-</td>
-          <td><?php echo $row['awayTeam']; ?></td>
+          <td><?php echo $row['away']; ?></td>
           <td><?php echo $row['result']; ?></td>
-          <td><?php echo $row['resultShort']; ?></td>
+          <td><?php echo $row['short']; ?></td>
           <td><?php echo $row['season']; ?></td>
         </tr>
         <?php

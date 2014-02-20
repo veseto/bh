@@ -32,13 +32,13 @@ if(!isset($_SESSION['uid'])) {
 	while ($league = $res->fetch_assoc()) {
 		$leagueId = $league['leagueId'];
 		foreach ($seasons as $season) {
-			$q0="select distinct homeTeam from matches where leagueId=$leagueId and season='$season'";
+			$q0="select distinct home from history where leagueId=$leagueId and season='$season'";
 			//echo "$q0<br>";
 			$res1 = $mysqli->query($q0);
 			while ($teamres = $res1->fetch_array()) {
 				$i ++;
 				$team = $teamres[0];
-				$draw = $mysqli->query("SELECT count(*) from matches where season='$season' and leagueId=$leagueId and (homeTeam='$team' or awayTeam='$team') and resultShort='D'")->fetch_array()[0];
+				$draw = $mysqli->query("SELECT count(*) from history where season='$season' and leagueId=$leagueId and (home='$team' or away='$team') and short='D'")->fetch_array()[0];
 				echo "<tr><td>$i</td><td><img src='img/".$league['country'].".png' /> ".$league['displayName']."</td> <td>$season</td> <td>$team</td> <td>$draw</td></tr>";
 			}
 		}

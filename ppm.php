@@ -134,7 +134,7 @@ if(!isset($_SESSION['uid'])) {
 	          <td><?php echo $row['income']; ?></span></td>
 	          <td><?php echo $row['profit']; ?></td>
 	          <td><?php echo $row['result']; ?></td>
-	          <td><?php echo $row['resultShort']; ?></td>	         
+	          <td><?php echo $row['resultShort']." ".$row['seriesId']." ".$row['matchId']; ?></td>	         
 	          </tr>
 	        <?php
 	        $i ++;

@@ -11,7 +11,7 @@
 	 				//  'ENGLAND' => array('PREMIER+LEAGUE', 'CHAMPIONSHIP', 'LEAGUE+ONE', 'LEAGUE+TWO'), 
 					 // 'SCOTLAND' => array('PREMIERSHIP', 'CHAMPIONSHIP', 'LEAGUE+ONE', 'LEAGUE+TWO'),
 				 	//  'GERMANY' => array('BUNDESLIGA', '2.+BUNDESLIGA', '3.+LIGA'),
-				 	 'FRANCE' => array('CHAMPIONNAT+NATIONAL'));//array('LIGUE+1', 'LIGUE+2'),
+				 	 // 'CYPRUS' => array('DIVISION+1'));//array('LIGUE+1', 'LIGUE+2'),
 				 	 // 'ITALY' => array('SERIE+A', 'SERIE+B'),
 				 	 // 'TURKEY' => array('SUPER+LIG'));
 				 	 //'MEXICO' => array('APERTURA'));
@@ -68,8 +68,8 @@
 				    $home = serialize($home);
 				    $away = serialize($away);
 				    $total = serialize($total);
-				    $q0 = "UPDATE tables set place=$place, home='$home', away='$away', total='$total' where leagueId=$leagueId and team='$team'";
-				   // $q0 = "INSERT INTO tables (place, home, away, total, team, leagueId) values ($place, '$home', '$away', '$total', '$team', $leagueId)";
+				   // $q0 = "UPDATE tables set place=$place, home='$home', away='$away', total='$total' where leagueId=$leagueId and team='$team'";
+				    $q0 = "INSERT INTO tables (place, home, away, total, team, leagueId) values ($place, '$home', '$away', '$total', '$team', $leagueId)";
 				    $mysqli->query($q0);
 				    echo $mysqli->error;
 				    //echo "$key->$league $leagueId <br>";
