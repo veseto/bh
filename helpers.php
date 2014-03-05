@@ -25,6 +25,26 @@ if(!isset($_SESSION['uid'])) {
       </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="list-group">
+            <a href="lengthhelper.php?league=1" class="list-group-item">series length last 5 seasons</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 pull-right">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="list-group">
+            
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
 <?php
   include("includes/footer.php");
 ?>

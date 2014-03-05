@@ -87,12 +87,10 @@
 							 		$updatedMatches ++;
 									$homeSeries = $mysqli->query("SELECT seriesId FROM series where team='$cntry' and active=1")->fetch_array()[0];
 									if ($ftShort === 'D') {
-										 $mysqli->query("update series set active=0, length=length+1 where seriesId='$homeSeries'");
+										$mysqli->query("update series set active=0, length=length+1 where seriesId='$homeSeries'");
 										echo $mysqli->error;
-										 $mysqli->query("INSERT INTO series (team, length, active, leagueId) values ('$cntry', 1, 1, ".$m['leagueId'].")");
-										 echo $mysqli->error;
-										 
-
+										$mysqli->query("INSERT INTO series (team, length, active, leagueId) values ('$cntry', 1, 1, ".$m['leagueId'].")");
+										echo $mysqli->error;
 									} else {
 										$mysqli->query("update series set length=length+1 where seriesId='$homeSeries'");
 					 					echo $mysqli->error;
@@ -119,7 +117,7 @@
 		$match = $res2->fetch_assoc();
 		if ($match) {
 			//echo $match['length']." > ".$settings[$match['leagueId']]."<br>";
-				$mysqli->query("UPDATE matches set homeTeamSeriesID=".$serie['seriesId'].", awayTeamSeriesID=".$serie['seriesId']." where matchId=".$match['matchId']);	
+				//$mysqli->query("UPDATE matches set homeTeamSeriesID=".$serie['seriesId'].", awayTeamSeriesID=".$serie['seriesId']." where matchId=".$match['matchId']);	
 				
 				$q2="SELECT count(*) from playedMatches where matchId=".$match['matchId']." and seriesId=".$serie['seriesId'];
 				if ($mysqli->query($q2)->fetch_array()[0] === '0') {
@@ -127,7 +125,7 @@
 					$tmp = $mysqli->query($q4);
 					if ($tmp->num_rows) {
 						$old = $tmp->fetch_assoc();
-						$mysqli->query("UPDATE matches set homeTeamSeriesID=0, awayTeamSeriesID=0 where matchId=".$old['matchId']);
+						//$mysqli->query("UPDATE matches set homeTeamSeriesID=0, awayTeamSeriesID=0 where matchId=".$old['matchId']);
 						$mysqli->query("delete FROM playedMatches where matchId=".$old['matchId']);
 					}
 					
@@ -137,7 +135,7 @@
 						
 						$betSoFar = $a[0] + $a[1];
 						echo "$betSoFar <br>";
-						$q7="INSERT INTO playedMatches (userId, matchId, currentLength, odds, bet, ignored, seriesId, betSoFar, pps) values ($i, ".$match['matchId'].", ".$serie['length'].", 3, 0, 0, ".$serie['seriesId'].", '$betSoFar', 0)";
+						$q7="INSERT INTO playedMatches (userId, matchId, currentLength, odds, bet, ignored, seriesId, betSoFar, pps, profit) values ($i, ".$match['matchId'].", ".$serie['length'].", 3, 0, 0, ".$serie['seriesId'].", '$betSoFar', 0, ".(0-$betSoFar).")";
 						$mysqli->query($q7);
 						echo $mysqli->error;
 					}

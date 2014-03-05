@@ -3,8 +3,8 @@
 	include("../connection.php");
   	$start = time();
 	$leagues = array(//'POLAND' => array('DIVISION+1'), 
-	 				 'DENMARK' => array('SUPERLIGAEN'),
-	 				 'RUSSIA' => array('PREMIER+LEAGUE', 'DIVISION+1'));
+	 				 //'DENMARK' => array('SUPERLIGAEN'),
+	 				 // 'CZECH+REPUBLIC' => array('DIVISION+1'));
 	 				//  'BELGIUM' => array('PRO+LEAGUE'),
 	 				//  'SPAIN' => array('PRIMERA+DIVISION'), 
 	 				//  'AUSTRALIA' => array('A-LEAGUE'),
@@ -14,7 +14,7 @@
 				 	//  'FRANCE' => array('LIGUE+1', 'LIGUE+2'),
 				 	//  'ITALY' => array('SERIE+A', 'SERIE+B'),
 				 	//  'TURKEY' => array('SUPER+LIG'));
-				 	 //'MEXICO' => array('APERTURA'));
+				 	 //'MEXICO' => array('CLAUSURA'));
 
 	// $leagues2 = array('1' => 'http://int.soccerway.com/national/england/premier-league/20132014/regular-season/r21322/', 
 	// 					'2' => 'http://int.soccerway.com/national/england/championship/20132014/regular-season/r21389/', 
@@ -31,7 +31,7 @@
 
 	foreach ($leagues as $key => $value) {
 		foreach ($value as $league) {
-			$url = "http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=$key&leagueCup=L&leagueName=$league&seasonName=2013%2F2014&leagueName1=&groupBy=4&viewLast=0&result=5#.UudoTRD8JaT";
+			$url = "http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=$key&leagueCup=L&leagueName=$league&leagueName1=$league&seasonName=2013%2F2014&leagueName1=&groupBy=4&viewLast=0&result=5#.UudoTRD8JaT";
 		 	//echo "$url <br>";
 		 	$data = file_get_contents($url);
 
@@ -68,13 +68,14 @@
 						    	}
 						    }
 						    $leagueName = str_replace("+", " ", $league);
-						    $q = "SELECT leagueId from leagueDetails where country='$key' and name='$leagueName'";
+						     $countryName = str_replace("+", " ", $key);
+						    $q = "SELECT leagueId from leagueDetails where country='$countryName' and name='$leagueName'";
 						    $leagueId = $mysqli->query($q)->fetch_array()[0];
 						    $home = serialize($home);
 						    $away = serialize($away);
 						    $total = serialize($total);
-						    //$q1 = "INSERT INTO tables (place, home, away, total, team, leagueId) values ($place, '$home', '$away', '$total', '$team', $leagueId)";
-						    $q0 = "UPDATE tables set place=$place, home='$home', away='$away', total='$total' where leagueId=$leagueId and team='$team'";
+						    $q0 = "INSERT INTO tables (place, home, away, total, team, leagueId) values ($place, '$home', '$away', '$total', '$team', $leagueId)";
+						    //$q0 = "UPDATE tables set place=$place, home='$home', away='$away', total='$total' where leagueId=$leagueId and team='$team'";
 						    //echo "$q0<br>";
 						    $mysqli->query($q0);
 						    echo $mysqli->error;

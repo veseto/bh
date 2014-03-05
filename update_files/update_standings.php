@@ -5,7 +5,7 @@
 	$leagues = array('POLAND' => array('DIVISION+1'), 
 	 				 //'DENMARK' => array('SUPERLIGAEN'),
 	 				 //'RUSSIA' => array('PREMIER+LEAGUE', 'DIVISION+1'),
-	 				 'BELGIUM' => array('PRO+LEAGUE'),
+	 				 //'BELGIUM' => array('PRO+LEAGUE'),
 	 				 'SPAIN' => array('PRIMERA+DIVISION'), 
 	 				 'AUSTRALIA' => array('A-LEAGUE'),
 	 				 'ENGLAND' => array('PREMIER+LEAGUE', 'CHAMPIONSHIP', 'LEAGUE+ONE', 'LEAGUE+TWO'), 
@@ -14,7 +14,10 @@
 				 	 'FRANCE' => array('LIGUE+1', 'LIGUE+2', 'CHAMPIONNAT+NATIONAL'),
 				 	 'ITALY' => array('SERIE+A', 'SERIE+B'),
 				 	 'TURKEY' => array('SUPER+LIG'),
-				 	 'CROATIA' => array('DIVISION+1'));
+				 	 'CROATIA' => array('DIVISION+1'),
+				 	 'CYPRUS' => array('DIVISION+1'),
+				 	 'AUSTRIA' => array('BUNDESLIGA'),
+				 	 'MEXICO' => array('CLAUSURA'));
 
 	// $leagues2 = array('1' => 'http://int.soccerway.com/national/england/premier-league/20132014/regular-season/r21322/', 
 	// 					'2' => 'http://int.soccerway.com/national/england/championship/20132014/regular-season/r21389/', 

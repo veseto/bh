@@ -72,6 +72,49 @@ if(!isset($_SESSION['uid'])) {
 
 ?>
 		<table id="scoreTable" class="table table-fixed table-bordered table-condensed text-center">
+
+	      <tbody>
+	        <?php 
+	        $i = 1;
+	        $totalBet = 0;
+	        $totalIncome = 0;
+	        $totalProfit = 0;
+	        $totalBSF = 0;
+	        while ($row = $res->fetch_assoc()) {
+	        	$totalBet += $row['bet'];
+	        	$totalProfit += $row['profit'];
+	        	$totalIncome += $row['income'];
+	        	$totalBSF += $row['betSoFar'];
+	        	$placeH = $mysqli->query("SELECT place FROM tables where leagueId=".$row['leagueId']." and team='".$row['homeTeam']."'")->fetch_array()[0];
+	        	$placeA = $mysqli->query("SELECT place FROM tables where leagueId=".$row['leagueId']." and team='".$row['awayTeam']."'")->fetch_array()[0];
+	        ?>
+
+	        <tr id="<?php echo $row['matchId'];?>">
+	          <td class="center" id="<?php echo $row['seriesId'];?>"><img class="clickable" src="dt/examples/examples_support/details_open.png"></td>	          
+	          <td><?php echo $i; ?></td>
+	          <td><?php echo $row['matchDate']; ?></td>
+	          <td><?php echo substr($row['matchTime'], 0, -3); ?></td>
+	          <td><img src="img/<?=$row['country'] ?>.png" title="<?=$row['country']?>"/> <?php echo $row['displayName']; ?></td>
+	          <td><?php 
+	              echo "<a href='seriesdetails.php?series=".$row['seriesId']."'>[".$placeH."] ".$row['homeTeam'] ." </a>";
+	          ?></td>
+	          <td>-</td>
+	          <td><?php 
+	            echo "<a href='seriesdetails.php?series=".$row['seriesId']."'> [".$placeA."] ".$row['awayTeam']." <span style='color: red; font-weight: bold;'>(".$row['currentLength'].")</span> </a>";
+	          ?></td>
+	          <td id="<?php echo $row['seriesId'];?>"><?php echo $row["betSoFar"]; ?></td>
+	          <td <?php if ($row['resultShort'] == '-') echo 'class="editable warning"';?> id="<?php echo $row['seriesId'];?>"><?php echo $row['bet']; ?></td>
+	          <td <?php if ($row['resultShort'] == '-') echo 'class="editable warning"';?> id="<?php echo $row['seriesId'];?>"><?php echo $row['odds']; ?></td>
+	          <td><?php echo $row['income']; ?></span></td>
+	          <td><?php echo $row['profit']; ?></td>
+	          <td><?php echo $row['result']; ?></td>
+	          <td><?php echo $row['resultShort']; ?></td>	         
+	          </tr>
+	        <?php
+	        $i ++;
+	        }
+	        ?>
+	      </tbody>
 	      <thead>
 	      	<tr>
 	      		<th><input type="hidden"></th>
@@ -89,6 +132,23 @@ if(!isset($_SESSION['uid'])) {
 	      		<th><input type="hidden"></th>
 	      		<th><input type="hidden"></th>
 	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="result"></th>
+	      	</tr>
+	      	<tr>
+	      		<th></th>	
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th><?=$totalBSF?></th>
+	      		<th><?=$totalBet?></th>
+	      		<th></th>
+	      		<th><?=$totalIncome?></th>
+	      		<th><?=$totalProfit?></th>
+      			<th></th>
+      			<th></th>
 	      	</tr>
 	        <tr>
 	          <th></th>
@@ -108,40 +168,31 @@ if(!isset($_SESSION['uid'])) {
 	          <th>Result</th>
 	        </tr>
 	      </thead>
-	      <tbody>
-	        <?php 
-	        $i = 1;
-	        while ($row = $res->fetch_assoc()) {
-	        	$placeH = $mysqli->query("SELECT place FROM tables where leagueId=".$row['leagueId']." and team='".$row['homeTeam']."'")->fetch_array()[0];
-	        	$placeA = $mysqli->query("SELECT place FROM tables where leagueId=".$row['leagueId']." and team='".$row['awayTeam']."'")->fetch_array()[0];
-	        ?>
-	        <tr id="<?php echo $row['matchId'];?>">
-	          <td class="center" id="<?php echo $row['seriesId'];?>"><img src="dt/examples/examples_support/details_open.png"></td>	          
-	          <td><?php echo $i; ?></td>
-	          <td><?php echo $row['matchDate']; ?></td>
-	          <td><?php echo substr($row['matchTime'], 0, -3); ?></td>
-	          <td><img src="img/<?=$row['country'] ?>.png"/> <?php echo $row['displayName']; ?></td>
-	          <td><?php 
-	              echo "[".$placeH."] ".$row['homeTeam'];
-	          ?></td>
-	          <td>-</td>
-	          <td><?php 
-	            echo "[".$placeA."] ".$row['awayTeam']." <span style='color: red; font-weight: bold;'>(".$row['currentLength'].")</span>";
-	          ?></td>
-	          <td id="<?php echo $row['seriesId'];?>"><?php echo $row["betSoFar"]; ?></td>
-	          <td class="editable warning" id="<?php echo $row['seriesId'];?>"><?php echo $row['bet']; ?></td>
-	          <td class="editable warning" id="<?php echo $row['seriesId'];?>"><?php echo $row['odds']; ?></td>
-	          <td><?php echo $row['income']; ?></span></td>
-	          <td><?php echo $row['profit']; ?></td>
-	          <td><?php echo $row['result']; ?></td>
-	          <td><?php echo $row['resultShort']." ".$row['seriesId']." ".$row['matchId']; ?></td>	         
-	          </tr>
-	        <?php
-	        $i ++;
-	        }
-	        ?>
-	      </tbody>
+	      <tfoot>
+	      	<tr>
+	      		<th></th>	
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th></th>
+	      		<th><?=$totalBSF?></th>
+	      		<th><?=$totalBet?></th>
+	      		<th></th>
+	      		<th><?=$totalIncome?></th>
+	      		<th><?=$totalProfit?></th>
+      			<th></th>
+      			<th></th>
+	      	</tr>
+	      </tfoot>
 	    </table>
+	    <div class="pointer"> 
+			<!-- Bet: <?=$totalBet?><br>
+			Income: <?=$totalIncome?><br>
+			Profit: <?=$totalProfit?> -->
+		</div>
 	    <script type="text/javascript">
 		var asInitVals = new Array();
 
@@ -277,7 +328,7 @@ if(!isset($_SESSION['uid'])) {
 			 * Note that the indicator for showing which row is open is not controlled by DataTables,
 			 * rather it is done here
 			 */
-			$('#scoreTable tbody td img').on('click', function () {
+			$('#scoreTable tbody').on('click', '.clickable' ,function () {
 				var nTr = this.parentNode.parentNode;
 				var id = this.parentNode.getAttribute('id');
 				if ( this.src.match('details_close') )
@@ -294,6 +345,13 @@ if(!isset($_SESSION['uid'])) {
 				}
 			} );
 		} );
+		new Tether({
+          element: '.pointer',
+          attachment: 'middle right',
+          targetAttachment: 'middle left',
+          targetModifier: 'scroll-handle',
+          target: document.body
+        });
 	    </script>
 
 <?php

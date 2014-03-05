@@ -93,6 +93,17 @@ table th img, table td img {
   margin: 0px 0px 3px 0px;
 }
 
+table th a, table td a {
+  color: #333333;
+  text-decoration: underline;
+}
+
+table td a:hover, table td a:active, 
+table th a:hover, table th a:active {
+  color: #333333;
+  text-decoration: none;
+}
+
 .shortInput {
 	width: 40px;
 	border: 1px solid #c0c0c0;

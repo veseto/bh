@@ -20,26 +20,30 @@
                 <table class="table table-bordered table-condensed text-center noPaddingMargin" id="deposits">
                   <thead>
                     <tr>
-                      <th style="width: 20%">Date</th>
-                      <th style="width: 15%">Time</th>
-                      <th style="width: 50%">Source</th>
-                      <th style="width: 15%">Amount</th>
-                      <th style="width: 20%"><?=$typeH?></th>
+                      <th>#</th>
+                      <th>Date</th>
+                      <th>Time</th>
+                      <th>Source</th>
+                      <th>Amount</th>
+                      <th><?=$typeH?></th>
                     </tr>
                   </thead>
                   <tbody>
                   <?php
-                    $res = $mysqli->query("SELECT * FROM money where type=$type and userId=".$_SESSION['uid']." order by tDate desc, tTime desc");
+                    $i = 1;
+                    $res = $mysqli->query("SELECT * FROM money where (type=$type or type=$type+2) and userId=".$_SESSION['uid']." order by tDate desc, tTime desc");
                     while ($dep = $res->fetch_assoc()) {
                   ?>
                     <tr id=<?=$dep['tId']?>>
+                      <td><?=$i?></td>
                       <td class="editable"><?=$dep['tDate']?></td>
                       <td class="editable"><?php echo substr($dep['tTime'], 0, -3); ?></td>
                       <td class="editable"><?=$dep['source']?></td>
                       <td class="editable"><?=$dep['amount']?></td>
-                      <td><input type="checkbox" class="checkbox"></td>
+                      <td><input type="checkbox" class="checkbox" <?php if ($dep['type'] == 3 || $dep['type'] == 4) echo "checked";?>></td>
                     </tr>
                   <?php
+                      $i++;
                     }
                   ?>
                   </tbody>
@@ -53,7 +57,6 @@
                    data: {checked: 'true', id: $(this).parent().parent().attr("id")},
                    type: 'post', 
                    success: function(output) {
-                      alert(output);
                   }
               });
               } else {

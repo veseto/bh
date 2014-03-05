@@ -78,7 +78,7 @@
               from playedMatches 
               left join matches 
               on matches.matchId=playedMatches.matchId 
-              where (matchDate>'$d' or (matchDate='$d' and matchTime>='$t')) and (matchDate<'$d1' or (matchDate='$d1' and matchTime<='$t1')) and bet>0 and pps=1 and userId=".$_SESSION['uid'];
+              where matchDate='$d' and bet>0 and pps=1 and userId=".$_SESSION['uid'];
     
         $notPlayedPPS = $mysqli->query($q0)->fetch_array()[0];
         $notPlayedPPM = $mysqli->query("SELECT count(*) 
@@ -90,7 +90,7 @@
               from playedMatches 
               left join matches 
               on matches.matchId=playedMatches.matchId 
-              where (matchDate>'$d' or (matchDate='$d' and matchTime>='$t')) and (matchDate<'$d1' or (matchDate='$d1' and matchTime<='$t1')) and pps=1 and userId=".$_SESSION['uid'])->fetch_array()[0];
+              where matchDate='$d' and pps=1 and userId=".$_SESSION['uid'])->fetch_array()[0];
         $allPPM = $mysqli->query("SELECT count(*) 
               from playedMatches 
               left join matches 
@@ -103,12 +103,12 @@
         $endTime = date("H:i:s", time());
 
 
-        $livescoreCurr = $mysqli->query("SELECT count(*)
+        $livescoreCurr = $mysqli->query("SELECT count(distinct playedMatches.matchId) as s 
               from playedMatches 
               left join matches 
               on matches.matchId = playedMatches.matchId
               where matchDate='$d' and matchTime>='$startTime' and matchTime<='$endTime' and (userId=".$_SESSION['uid']." and (bet>0 or betSoFar>0))")->fetch_array()[0];
-         $livescoreAll = $mysqli->query("SELECT count(*)
+        $livescoreAll = $mysqli->query("SELECT count(distinct playedMatches.matchId) as s
               from playedMatches 
               left join matches 
               on matches.matchId = playedMatches.matchId
@@ -121,7 +121,7 @@
       <div class="container">
          <ul class="nav navbar-nav">
           <li class="padded"><div class="btn-group">
-            <button onclick="location.href='dayview.php?day=today'" type="button" class="btn btn-primary btn-sm" id="navBtns">today <span <?php if ($notPlayedPPS != $allPPS) echo 'class="unplayedGamesNumber"'; ?>><?=$notPlayedPPS ?></span>/<?=$allPPS ?></button>
+            <button onclick="location.href='dayview.php?day=today'" type="button" class="btn btn-primary btn-sm" id="navBtns">pps <span <?php if ($notPlayedPPS != $allPPS) echo 'class="unplayedGamesNumber"'; ?>><?=$notPlayedPPS ?></span>/<?=$allPPS ?></button>
             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
                <li class="dropdown-header">next</li>
@@ -140,16 +140,20 @@
                <li><a href="dayview.php?day=-5">-5 days (<?php echo date("d.m", time()-4*86400)." ".$week[date("w", time()-4*86400)];?>)</a></li>
                <li><a href="dayview.php?day=-10">-10 days (<?php echo date("d.m", time()-9*86400)." ".$week[date("w", time()-9*86400)];?>)</a></li>
                <li><a href="dayview.php?day=-15">-15 days (<?php echo date("d.m", time()-14*86400)." ".$week[date("w", time()-14*86400)];?>)</a></li>
+               <li><a href="dayview.php?day=-30">-30 days (<?php echo date("d.m", time()-29*86400)." ".$week[date("w", time()-29*86400)];?>)</a></li>
             </ul>
           </div></li>
           <li class="padded"><div class="btn-group">
-            <button onclick="location.href='ppm.php?day=5'" type="button" class="btn btn-primary btn-sm" id="navBtns">ppm <span <?php if ($notPlayedPPM != $allPPM) echo 'class="unplayedGamesNumber"'; ?>><?=$notPlayedPPM ?></span>/<?=$allPPM ?></button>
+            <button onclick="location.href='ppm.php?day=today'" type="button" class="btn btn-primary btn-sm" id="navBtns">ppm <span <?php if ($notPlayedPPM != $allPPM) echo 'class="unplayedGamesNumber"'; ?>><?=$notPlayedPPM ?></span>/<?=$allPPM ?></button>
             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
                <li class="dropdown-header">next</li>
+               <li><a href="ppm.php?day=2">2 days (<?php echo date("d.m", time()+86400)." ".$week[date("w", time()+86400)];?>)</a></li>
+               <li><a href="ppm.php?day=3">3 days (<?php echo date("d.m", time()+2*86400)." ".$week[date("w", time()+2*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=4">4 days (<?php echo date("d.m", time()+3*86400)." ".$week[date("w", time()+3*86400)];?>)</a></li>
                <li><a href="ppm.php?day=5">5 days (<?php echo date("d.m", time()+4*86400)." ".$week[date("w", time()+4*86400)];?>)</a></li>
-               <li><a href="ppm.php?day=10">10 days (<?php echo date("d.m", time()+9*86400)." ".$week[date("w", time()+9*86400)];?>)</a></li>
-               <li><a href="ppm.php?day=20">20 days (<?php echo date("d.m", time()+19*86400)." ".$week[date("w", time()+19*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=6">6 days (<?php echo date("d.m", time()+5*86400)." ".$week[date("w", time()+5*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=7">7 days (<?php echo date("d.m", time()+6*86400)." ".$week[date("w", time()+6*86400)];?>)</a></li>
                <li><a href="ppm.php?day=all">all available</a></li>
                <li class="divider"></li>
                <li class="dropdown-header">previous</li>
@@ -159,6 +163,7 @@
                <li><a href="ppm.php?day=-5">-5 days (<?php echo date("d.m", time()-4*86400)." ".$week[date("w", time()-4*86400)];?>)</a></li>
                <li><a href="ppm.php?day=-10">-10 days (<?php echo date("d.m", time()-9*86400)." ".$week[date("w", time()-9*86400)];?>)</a></li>
                <li><a href="ppm.php?day=-15">-15 days (<?php echo date("d.m", time()-14*86400)." ".$week[date("w", time()-14*86400)];?>)</a></li>
+               <li><a href="ppm.php?day=-30">-30 days (<?php echo date("d.m", time()-29*86400)." ".$week[date("w", time()-29*86400)];?>)</a></li>
             </ul>
           </div></li>
           <li class="padded"><div class="btn-group">

@@ -27,13 +27,13 @@
 		    case 1:
 		        $mysqli->query("UPDATE money set tDate='$val' where tId=$id");
 		        break;
-		    case 1:
+		    case 2:
 		        $mysqli->query("UPDATE money set tTime='$val' where tId=$id");
 		        break;
-		    case 2:
+		    case 3:
 		        $mysqli->query("UPDATE money set source='$val' where tId=$id");
 		        break;
-		    case 3:
+		    case 4:
 		        $mysqli->query("UPDATE money set amount='$val' where tId=$id");
 		        break;
 		}

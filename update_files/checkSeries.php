@@ -22,12 +22,12 @@
 					$l ++;
 				}
 			}
-			$q2 = "SELECT length 
+			$q2 = "SELECT length, seriesId 
 					FROM series
 					WHERE active=1 AND team='$team'";
-			$length = $mysqli->query($q2)->fetch_array()[0];
-			if ($l != $length) {
-				echo "$team -> real length: $l series length: $length<br>";
+			$length = $mysqli->query($q2)->fetch_array();
+			if ($l != $length[0]) {
+				echo $length[1]." $team -> real length: $l series length: ".$length[0]."<br>";
 			}
 		}
 	}

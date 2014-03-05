@@ -4,7 +4,10 @@
   	$start = time();
 	$leagues = array(//'POLAND' => array('DIVISION+1'), 
 	 				 'DENMARK' => array('SUPERLIGAEN'),
-	 				 'RUSSIA' => array('PREMIER+LEAGUE', 'DIVISION+1'));
+	 				 'RUSSIA' => array('PREMIER+LEAGUE', 'DIVISION+1'),
+	 				 'CZECH+REPUBLIC' => array('DIVISION+1'),
+	 				 'ROMANIA' => array('LIGA+1'),
+	 				 'SLOVENIA' => array('DIVISION+1'));
 	 				//  'BELGIUM' => array('PRO+LEAGUE'),
 	 				//  'SPAIN' => array('PRIMERA+DIVISION'), 
 	 				//  'AUSTRALIA' => array('A-LEAGUE'),

@@ -11,7 +11,7 @@
 	 				//  'ENGLAND' => array('PREMIER+LEAGUE', 'CHAMPIONSHIP', 'LEAGUE+ONE', 'LEAGUE+TWO'), 
 					 // 'SCOTLAND' => array('PREMIERSHIP', 'CHAMPIONSHIP', 'LEAGUE+ONE', 'LEAGUE+TWO'),
 				 	//  'GERMANY' => array('BUNDESLIGA', '2.+BUNDESLIGA', '3.+LIGA'),
-				 	 // 'CYPRUS' => array('DIVISION+1'));//array('LIGUE+1', 'LIGUE+2'),
+				 	  'AUSTRIA' => array('BUNDESLIGA'));//array('LIGUE+1', 'LIGUE+2'),
 				 	 // 'ITALY' => array('SERIE+A', 'SERIE+B'),
 				 	 // 'TURKEY' => array('SUPER+LIG'));
 				 	 //'MEXICO' => array('APERTURA'));

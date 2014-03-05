@@ -17,7 +17,7 @@
 	$league = $mysqli->query("SELECT leagueId from series where seriesId=$series")->fetch_array()[0];
 
 	$q="SELECT * from matches where leagueId=$league and (matchDate>'$date' or (matchDate='$date' and matchTime>'$time')) order by matchDate asc, matchTime asc limit 10";
-	$had = $mysqli->query("SELECT resultShort from matches where leagueId=$league and (matchDate<'$date' or (matchDate='$date' and matchTime<'$time')) order by matchDate desc, matchTime desc limit 15");
+	$had = $mysqli->query("SELECT resultShort from matches where leagueId=$league and (matchDate<'$date' or (matchDate='$date' and matchTime<'$time')) order by matchDate desc, matchTime desc limit 20");
 	$res = $mysqli->query($q);
 	$round = $mysqli->query("SELECT round from matches left join playedMatches on playedMatches.matchId=matches.matchId where seriesId=$series and matchTime='$time' and matchDate='$date'")->fetch_array()[0];
 	while ($m = $res->fetch_assoc()) {
@@ -28,7 +28,14 @@
 			if ($round != $m['round']) {
 				echo "<tr style='color: #ccc'><td>".$m['matchDate']."</td><td>$time</td><td>[$placeH] ".$m['homeTeam']."</td><td>-</td><td>[$placeA] ".$m['awayTeam']."</td></tr>";
 			} else {
-				echo "<tr><td>".$m['matchDate']."</td><td>$time</td><td>[$placeH] ".$m['homeTeam']."</td><td>-</td><td>[$placeA] ".$m['awayTeam']."</td></tr>";
+				$d = date("Y-m-d", time());
+				if ($m['matchDate'] == $d) {
+					echo "<tr><td><strong>".$m['matchDate']."</strong></td>";
+				} else {
+					echo "<tr><td>".$m['matchDate']."</td>";
+				}
+				
+				echo "<td>$time</td><td>[$placeH] ".$m['homeTeam']."</td><td>-</td><td>[$placeA] ".$m['awayTeam']."</td></tr>";
 			}
 			//echo $m['matchDate']."&nbsp;&nbsp;&nbsp;$time&nbsp;&nbsp;&nbsp;[$placeH] ".$m['homeTeam']." - [$placeA] ".$m['awayTeam']."<br />";
 	}

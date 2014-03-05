@@ -29,7 +29,8 @@
 				<th>Home Team</th>
 				<th>-</th>
 				<th>Away Team</th>
-				<th>bet</th>
+				<th>income home</th>
+				<th>income away</th>
 				<th>result</th>
 				<th>result</th>
 	        </tr>
@@ -46,7 +47,15 @@
 				'australia.gif'=>array('D1'=>'AL'), 
 				'spain.gif'=>array('PD'=>'PD'), 
 				'poland.gif'=>array('D1'=>'D1'), 
-				'france.gif'=>array('L1'=>'L1', 'L2'=>'L2'));
+				'france.gif'=>array('L1'=>'L1', 'L2'=>'L2'),
+				'romania.gif'=>array('L1' => 'L1'),
+				'denmark.gif'=>array('SL' => 'SL'),
+				'croatia.gif'=>array('D1' => 'D1'),
+				'mexico.gif'=>array('CL' => 'CL'),
+				'austria.gif'=>array('BL' => 'BL'),
+				'czech republic.gif'=>array('D1' => 'D1'),
+				'cyprus.gif'=>array('D1' => 'D1'), 
+				'slovakia.gif'=>array('D1' => 'D1'));
 
  	$data = file_get_contents("http://www.xscores.com/soccer/soccer.jsp?sports=soccer&flag=sportData#.Ut5V72T8K2w");
 
@@ -83,21 +92,26 @@
 	  	$q = "select * from playedMatches
 						left join (matches, series)
 						on (matches.matchId = playedMatches.matchId and series.seriesId=playedMatches.seriesId) 
-						where matches.matchDate='$d' and homeTeam='$home' and awayTeam='$away' and userId=".$_SESSION['uid'];
+						where (bet<>0 or betSoFar<>0) and matches.matchDate='$d' and homeTeam='$home' and awayTeam='$away' and userId=".$_SESSION['uid'];
 		// echo "$q<br>";
 		$bet = "";
+		$bet1 = "";
 		if ($res = $mysqli->query($q)) {
-			$match = $res->fetch_assoc();
-			if ($match['bet'] > 0){
-				$inPlayed=true;
-				$bet = $bet0 = $match['income']."/".$match['profit'];
-			}
-			if ($match2 = $res->fetch_assoc()) {
-				$bet1 =  $match2['income']."/".$match2['profit'];
+			if ($match = $res->fetch_assoc()){
+				$inPlayed = true;
+				$bet = $match['income'];
+				if ($match2 = $res->fetch_assoc()) {
+					$bet1 =  $match2['income'];
+				}
 				if ($match['homeTeam'] == $match['team']) {
-					$bet = $bet0." | ".$bet1;
+						$betH = $bet;
+						$betA = $bet1;
 				} else if ($match['awayTeam'] === $match['team']) {
-					$bet = $bet1." | ".$bet0;
+					$betH = $bet1;
+					$betA = $bet;				
+				} else {
+					$betH = $bet;
+					$betA = '-';
 				}
 			}
 		}
@@ -119,7 +133,8 @@
 		<td><?php echo $home; ?></td>
 		<td>-</td>
 		<td><?php echo $away; ?></td>
-		<td><?=$bet ?></td>
+		<td><?=$betH ?></td>
+		<td><?=$betA ?></td>
 		<td <?php 
 			$short = "-";
 			$tmp = explode("-", $ft);

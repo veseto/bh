@@ -1,5 +1,8 @@
 <?php
 include("/var/www/bh/connection.php");
+
+$leagues = array('MEXICO' => 'CLAUSURA');
+
 $start = time();
 $updatedMatches = 0;
 $updatedMatchesToPlay = 0;
@@ -13,10 +16,10 @@ $lg = '';
 foreach ($leagues as $country => $leagueKey) {
 			$cntry = str_replace("+", " ", $country);
 			$leagueName = str_replace("+", " ", $leagueKey);
-			$leagueId = $mysqli->query("SELECT leagueId from leagueDetails where country='$cntry' and name='$leagueName'")->fetch_array()[0];
+			$leagueId = $mysqli->query("SELECT leagueId from leagueDetails where country='$country' and name='$leagueName'")->fetch_array()[0];
 			$lg = $leagueName;
 
-			$data1 = file_get_contents("http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=$country&leagueName=$leagueKey&seasonName=2013%2F2014&sortBy=R&result=3#.Us6_JvQW3zg");
+			$data1 = file_get_contents("http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=MEXICO&leagueName=CLAUSURA&leagueName1=CLAUSURA&seasonName=2013%2F2014&sortBy=R&result=3#.UwYJ_kKSztk");
 
 			$dom1 = new domDocument;
 
@@ -33,17 +36,16 @@ foreach ($leagues as $country => $leagueKey) {
 					FROM matches 
 					left join leagueDetails 
 					on (leagueDetails.leagueId=matches.leagueId) 
-					where country='$cntry' and name='$leagueName' and state<>'Fin' 
+					where country='$country' and name='$leagueName' and state<>'Fin' 
 					order by round 
 					limit 1";
 			// echo "$q0<br>";
 			$first = $mysqli->query($q0)->fetch_array()[0];
-
 			for ($j = $first; $j <= $roundCount; $j ++) {
 				$n = $firstRound + $j - 1;
 				//$round = $j + 1;
 			// 	//echo "Round ".$j."<br>";
-			 	$data = file_get_contents("http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=$country&leagueName=$leagueKey&seasonName=2013%2F2014&sortBy=R&round=$n&result=3#.Us6_JvQW3zg");
+			 	$data = file_get_contents("http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=MEXICO&leagueName=CLAUSURA&leagueName1=CLAUSURA&seasonName=2013%2F2014&sortBy=R&round=$n&result=3#.UwYJ_kKSztk");
 
 				$dom = new domDocument;
 
@@ -83,10 +85,8 @@ foreach ($leagues as $country => $leagueKey) {
 							$q3 = "SELECT * 
 									FROM matches 
 									where season='2013-2014' and homeTeam='$home' and awayTeam='$away' and round=$j";
-							// echo "$q3";
-							$mres = $mysqli -> query($q3);
-							$m = $mres -> fetch_assoc();
-
+							$m = $mysqli -> query($q3) -> fetch_assoc();
+							
 							if (($stat === 'Post' || $stat === 'Abd') && $m['state'] === 'Sched') {
 								$mysqli->query("delete FROM playedMatches where matchId=".$m['matchId']);
 							}
@@ -99,7 +99,7 @@ foreach ($leagues as $country => $leagueKey) {
 								$d = date("Y-m-d", time() - 4*86400);
 							 	if ($ftShort != '-' && $stat==='Fin' && $date > $d && $m['resultShort'] === '-') {
 							 		$updatedMatches ++;
-							 		// echo "$home $away: $ftShort<br>";
+							 		echo "$home $away: $ftShort<br>";
 							 		//print_r($m);
 										// print_r($c);
 										// echo " ---> $home - $away $ft / $ftShort<br>";

@@ -151,7 +151,7 @@
 						
 						$betSoFar = $a[0] + $a[1];
 						echo "$betSoFar <br>";
-						$q7="INSERT INTO playedMatches (userId, matchId, currentLength, odds, bet, ignored, seriesId, betSoFar, pps) values ($i, ".$match['matchId'].", ".$serie['length'].", 3, 0, 0, ".$serie['seriesId'].", '$betSoFar', 0)";
+						$q7="INSERT INTO playedMatches (userId, matchId, currentLength, odds, bet, ignored, seriesId, betSoFar, pps, profit) values ($i, ".$match['matchId'].", ".$serie['length'].", 3, 0, 0, ".$serie['seriesId'].", '$betSoFar', 0, ".(0-$betSoFar).")";
 						$mysqli->query($q7);
 						echo $mysqli->error;
 					}
@@ -200,7 +200,7 @@
 						$a = $mysqli->query($q5)->fetch_array();
 						$betSoFar = $a[0] + $a[1];
 						// echo "    $betSoFar <br>";
-						$q7="INSERT INTO playedMatches (userId, matchId, currentLength, odds, bet, ignored, seriesId, betSoFar, pps) values ($i, ".$match['matchId'].", ".$serie['length'].", 3, 0, 0, ".$match['seriesId'].", '$betSoFar', 1)";
+						$q7="INSERT INTO playedMatches (userId, matchId, currentLength, odds, bet, ignored, seriesId, betSoFar, pps, profit) values ($i, ".$match['matchId'].", ".$serie['length'].", 3, 0, 0, ".$match['seriesId'].", '$betSoFar', 1, ".(0-$betSoFar).")";
 						$mysqli->query($q7);
 						echo $mysqli->error;
 					}
