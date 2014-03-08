@@ -1,6 +1,9 @@
 <?php
 	include("/var/www/bh/connection.php");
-	for ($i = 1; $i < 17; $i ++) {
+	$str = "";
+	$ids = $mysqli->query("SELECT DISTINCT leagueId from series");
+	while ($id = $ids->fetch_array()) {
+		$i = $id[0];
 		$q0 = "SELECT DISTINCT homeTeam
 				FROM matches
 				WHERE season =  '2013-2014'
@@ -26,10 +29,16 @@
 					FROM series
 					WHERE active=1 AND team='$team'";
 			$length = $mysqli->query($q2)->fetch_array();
-			if ($l != $length[0]) {
-				echo $length[1]." $team -> real length: $l series length: ".$length[0]."<br>";
+			if ($length != "" && $l != $length[0] && $team != "CLUB AMERICA") {
+				$str .= $length[1]." $team -> real length: $l series length: ".$length[0]."<br>";
 			}
 		}
 	}
-	
+	if ($str != "") {
+		$to      = 'wpopowa@gmail.com';
+		$subject = 'Wrong series';
+		$message = $str;
+		mail($to, $subject, $message);
+	}
+	echo "$str";
 ?>

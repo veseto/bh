@@ -20,6 +20,7 @@
 	      		<th><input type="hidden"></th>
 	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="res"></th>
 	      		<th><input type="hidden"></th>
+	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="res"></th>
 	      	</tr>
 	        <tr>
 				<th>Time</th>
@@ -55,7 +56,9 @@
 				'austria.gif'=>array('BL' => 'BL'),
 				'czech republic.gif'=>array('D1' => 'D1'),
 				'cyprus.gif'=>array('D1' => 'D1'), 
-				'slovakia.gif'=>array('D1' => 'D1'));
+				'slovakia.gif'=>array('D1' => 'D1'),
+				'slovenia.gif'=>array('D1' => 'D1'),
+				'russia.gif'=>array('PR' => 'PR'));
 
  	$data = file_get_contents("http://www.xscores.com/soccer/soccer.jsp?sports=soccer&flag=sportData#.Ut5V72T8K2w");
 

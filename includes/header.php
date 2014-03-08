@@ -155,6 +155,7 @@
                <li><a href="ppm.php?day=6">6 days (<?php echo date("d.m", time()+5*86400)." ".$week[date("w", time()+5*86400)];?>)</a></li>
                <li><a href="ppm.php?day=7">7 days (<?php echo date("d.m", time()+6*86400)." ".$week[date("w", time()+6*86400)];?>)</a></li>
                <li><a href="ppm.php?day=all">all available</a></li>
+               <li><a href="todaysppm.php">all today</a></li>
                <li class="divider"></li>
                <li class="dropdown-header">previous</li>
                <li><a href="ppm.php?day=-1">-1 days (<?php echo date("d.m", time()-86400)." ".$week[date("w", time()-86400)];?>)</a></li>
