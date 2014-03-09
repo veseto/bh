@@ -168,7 +168,7 @@
             </ul>
           </div></li>
           <li class="padded"><div class="btn-group">
-            <button onclick="location.href='livescore.php?played=true'" type="button" class="btn btn-primary btn-sm" id="navBtns"><span  style="font-size: 90%;">livescore <?=$livescoreCurr ?>/<?=$livescoreAll?></span></button>
+            <button onclick="location.href='livescore.php?played=true'" type="button" class="btn btn-primary btn-sm" id="navBtns"><span  style="font-size: 90%;">livescore <span <?php if ($livescoreCurr!=0) echo 'class="unplayedGamesNumber"'; ?>><?= $livescoreCurr?></span><span>/<?=$livescoreAll?></span></button>
             <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
                <li><a href="livescore.php">leagues</a></li>

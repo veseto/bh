@@ -43,8 +43,8 @@
                   <td><?=$match['matchDate'] ?></td>
                   <td><img src="img/<?=$match['country'] ?>.png"> <?=$match['displayName'] ?></td>
                   <td><?=$match['team'] ?></td>
-                  <td><?=$match['income'] ?> €</td>
-                  <td <?php if ($match['profit'] < 0) echo "class='livescore1HF'";?>><?=$match['profit'] ?> €</td>
+                  <td><?=$match['income'] ?></td>
+                  <td <?php if ($match['profit'] < 0) echo "class='livescore1HF'";?>><?=$match['profit'] ?></td>
                   <td><a href="seriesdetails.php?series=<?=$match['seriesId'] ?>">View</strong></a><br></td>
                 </tr>
                 <?php 

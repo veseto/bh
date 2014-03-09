@@ -60,7 +60,7 @@
 				'slovenia.gif'=>array('D1' => 'D1'),
 				'russia.gif'=>array('PR' => 'PR'));
 
- 	$data = file_get_contents("http://www.xscores.com/soccer/soccer.jsp?sports=soccer&flag=sportData#.Ut5V72T8K2w");
+ 	$data = file_get_contents("http://78.129.174.78/soccer/soccer.jsp?sports=soccer&flag=sportData#.Ut5V72T8K2w");
 
 	$dom = new domDocument;
 

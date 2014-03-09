@@ -1,4 +1,4 @@
 <?php
-	$leagues = array('RUSSIA' => 'PREMIER+LEAGUE');
-	include ("/var/www/bh/update_files/updatepps.php");
+	$league = array('RUSSIA' => 'PREMIER+LEAGUE');
+	include ("/var/www/bh/update_files/updateppm.php");
 ?>
