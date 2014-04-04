@@ -2,7 +2,9 @@
 	//include("header.php");
 	include("../connection.php");
   	$start = time();
-	$leagues = array(//'POLAND' => array('DIVISION+1'), 
+	$leagues = array('USA' => array('MAJOR+LEAGUE+SOCCER'),
+	 				 'JAPAN' => array('J.LEAGUE+DIV.1'));
+						//'POLAND' => array('DIVISION+1'), 
 	 				 //'DENMARK' => array('SUPERLIGAEN'),
 	 				 // 'CZECH+REPUBLIC' => array('DIVISION+1'));
 	 				//  'BELGIUM' => array('PRO+LEAGUE'),

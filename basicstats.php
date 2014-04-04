@@ -217,10 +217,10 @@
 							echo "<tr><td>".($k ++)."</td><td>$key</td><td>".$ops[$key]['profit']."</td><td>".$ops[$key]['insys']."</td><td>".$oddsarr[$key]."</td></tr>";
 						
 						}
-						$r = $mysqli->query("select count(*), length-1 from series where team in (select country from leagueDetails) and active=0 group by length");
-						while ($l = $r->fetch_array()) {
-							echo "length: ".$l[1]."-> count: ".$l[0]."<br>";
-						}
+						// $r = $mysqli->query("select count(*), length-1 from series where team in (select country from leagueDetails) and active=0 group by length");
+						// while ($l = $r->fetch_array()) {
+						// 	echo "length: ".$l[1]."-> count: ".$l[0]."<br>";
+						// }
 					} else {
 						$ops = $pps['countries'];
 						$k = 1;

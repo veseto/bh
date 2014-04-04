@@ -5,7 +5,7 @@
    header("Location: index.php");
  }
 	$settings = unserialize($mysqli->query("SELECT leaguesRequirements from userSettings where userId=".$_SESSION['uid'])->fetch_array()[0]);
-	$res = $mysqli->query("SELECT * FROM leagueDetails");
+	$res = $mysqli->query("SELECT * FROM leagueDetails order by country");
 ?>
 	<!-- <div class="row"> -->
 <?php
@@ -15,9 +15,9 @@
 		if (array_key_exists($row['leagueId'], $settings)) {
 			$badge = $settings[$row['leagueId']] + 1;
 		}
-		$name = $row['country']."/".$row['name'];
+		$name = $row['country']." ".$row['name'];
 ?>
-	<div class="col-md-3">
+	<div class="col-md-4">
     <ul class="list-group">
       <li class="list-group-item">
         <img src="img/<?=$row['country']?>.png" class="pullup" /> <span class="badge"><?=$badge ?></span>

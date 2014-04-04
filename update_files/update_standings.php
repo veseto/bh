@@ -1,6 +1,6 @@
 <?php
 	//include("header.php");
-	include("../connection.php");
+	include("/var/www/bh/connection.php");
   	$start = time();
 	$leagues = array('POLAND' => array('DIVISION+1'), 
 	 				 //'DENMARK' => array('SUPERLIGAEN'),

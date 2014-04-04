@@ -35,15 +35,13 @@
 								<td>
 									<?php
 									 	$i = 0;
-										$home = unserialize($tab['home']);
-										foreach ($home as $g) {
-											if ($i == 15) {
-												break;
-											}
+										$res0 = $mysqli->query("SELECT resultShort from matches where resultShort<>'-' and homeTeam='$team' order by matchDate desc limit 15");
+										while ($home = $res0->fetch_array()) {
+											$g = $home[0];
 											$i ++;
-											if ($g === 'W') {
+											if ($g === 'H') {
 												echo '<button type="button" class="btn btn-success btn-xs btn-series-wdl">W</button>&nbsp;';
-											} else if ($g === 'L') {
+											} else if ($g === 'A') {
 												echo '<button type="button" class="btn btn-danger btn-xs btn-series-wdl">L</button>&nbsp;';
 											} else if ($g === 'D') {
 												echo '<button type="button" class="btn btn-warning btn-xs btn-series-wdl">D</button>&nbsp;';
@@ -57,15 +55,13 @@
 								<td>
 									<?php
 									$i = 0;
-										$away = unserialize($tab['away']);
-										foreach ($away as $a) {
-											if ($i == 15) {
-												break;
-											}
+										$res1 = $mysqli->query("SELECT resultShort from matches where resultShort<>'-' and awayTeam='$team' order by matchDate desc limit 15");
+										while ($away = $res1->fetch_array()) {
+											$a = $away[0];
 											$i ++;
-											if ($a === 'W') {
+											if ($a === 'A') {
 												echo '<button type="button" class="btn btn-success btn-xs btn-series-wdl">W</button>&nbsp;';
-											} else if ($a === 'L') {
+											} else if ($a === 'H') {
 												echo '<button type="button" class="btn btn-danger btn-xs btn-series-wdl">L</button>&nbsp;';
 											} else if ($a === 'D') {
 												echo '<button type="button" class="btn btn-warning btn-xs btn-series-wdl">D</button>&nbsp;';
@@ -78,16 +74,14 @@
 								<td><strong>total</strong></td>
 								<td>
 									<?php
-										$i = 0;
-										$total = unserialize($tab['total']);
-										foreach ($total as $t) {
-											if ($i == 15) {
-												break;
-											}
+										$res2 = $mysqli->query("SELECT resultShort, homeTeam from matches where resultShort<>'-' and (homeTeam='$team' or awayTeam='$team') order by matchDate desc limit 15");
+										while ($total = $res2->fetch_array()) {
+											$t = $total[0];
+											$ht = $total[1];
 											$i ++;
-											if ($t === 'W') {
+											if (($t === 'H' && $team == $ht) || ($t == 'A' && $ht != $team)) {
 												echo '<button type="button" class="btn btn-success btn-xs btn-series-wdl">W</button>&nbsp;';
-											} else if ($t === 'L') {
+											} else if (($t === 'A' && $team == $ht) || ($t == 'H' && $ht != $team)) {
 												echo '<button type="button" class="btn btn-danger btn-xs btn-series-wdl">L</button>&nbsp;';
 											} else if ($t === 'D') {
 												echo '<button type="button" class="btn btn-warning btn-xs btn-series-wdl">D</button>&nbsp;';

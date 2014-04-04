@@ -12,8 +12,8 @@
 	$settings = unserialize($settings);
 	//print_r($settings);
 	//foreach ($settings as $key => $value) {
-	$value=3;
-	$key=60;
+	$value=2;
+	$key=65;
 		$res = $mysqli->query("SELECT DISTINCT homeTeam FROM matches where season='2013-2014' and leagueId=$key");
 		while($team = $res->fetch_array()) {
 			$mysqli->query("INsert into series (team, length, active, leagueId) values ('".$team[0]."', 1, 1, $key)");

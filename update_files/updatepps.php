@@ -170,5 +170,6 @@ foreach ($leagues as $country => $leagueKey) {
 	}
 	$sec = time() - $start;
 	$mysqli->query("INSERT INTO stats (leagueId, lastSec, updated, addedToPlay) values ($leagueId, $sec, $updatedMatches, $updatedMatchesToPlay)");
+	echo "ended";
 	// file_put_contents("/var/www/bh/data_manage/updateStats.txt", "$cntry->$lg ".date("Y-m-d h:i:s", time())." - seconds: ".$sec."  updated matches: ".$updatedMatches."  added matches to play: ".$updatedMatchesToPlay."\n", FILE_APPEND);
 ?>

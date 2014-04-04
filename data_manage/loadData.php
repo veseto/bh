@@ -8,12 +8,13 @@ include("../connection.php");
 	// 			 // 'BELGIUM' => array('PRO+LEAGUE'));
 // 				 'SPAIN' => array('PRIMERA+DIVISION'));
 	//$seasons = array('2005%2F2006', '2006%2F2007', '2007%2F2008', '2008%2F2009', '2009%2F2010', '2010%2F2011', '2011%2F2012', '2012%2F2013', '2013%2F2014');
-	$leagues = array('SWEDEN' => array('ALLSVENSKAN'));
+	$leagues = array('USA' => array('MAJOR+LEAGUE+SOCCER'));
 
 	foreach ($seasons as $season) {
 
 		$seasonName = str_replace("%2F", "-", $season);
-		$url = "http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=SWEDEN&leagueName=ALLSVENSKAN&seasonName=$season&sortBy=R&result=3#.UvjQvkKSztk";
+		$url = "http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=USA&leagueName=MAJOR+LEAGUE+SOCCER&leagueName1=MAJOR+LEAGUE+SOCCER&seasonName=2013%2F2014&sortBy=R&result=3";
+		//$url = "http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=USA&leagueName=ALL+STAR+GAME.1&seasonName=$season&sortBy=R&result=3#.UvjQvkKSztk";
 		echo "$url";
 		$data1 = file_get_contents($url);
 
@@ -24,14 +25,14 @@ include("../connection.php");
 
 		$select = $dom1->getElementById ('round');
 		$op = $select->getElementsByTagName('option');
-		$country = "SWEDEN";
-		$leagueName = 'ALLSVENSKAN';
+		$country = "USA";
+		$leagueName = 'MAJOR LEAGUE SOCCER';
 
 		$q1="select leagueId from leagueDetails where country='$country' and name='$leagueName'";
 		$leagueId = $mysqli->query($q1)->fetch_array()[0];
 
-		$firstRound = 116291;//$select->firstChild->getAttribute('value');
-		$roundCount = 30;//$select->lastChild->nodeValue;
+		$firstRound = 114394;//$select->firstChild->getAttribute('value');
+		$roundCount = 8;//$select->lastChild->nodeValue;
 		//echo "$country $leagueName $roundCount<br>";
 		echo "Season: $seasonName First round : $firstRound Round count: $roundCount<br>";
 		for ($j = 0; $j < $roundCount; $j ++) {
@@ -40,7 +41,8 @@ include("../connection.php");
 			$round = $j + 1;
 			//echo "Round ".$j."<br>";
 			//$url="http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=MEXICO&leagueName=CLAUSURA&leagueName1=CLAUSURA&seasonName=2013%2F2014&sortBy=R&round=$n&result=3";
-			$url = "http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=SWEDEN&leagueName=ALLSVENSKAN&seasonName=$season&sortBy=R&round=$n&result=3#.UvjQ30KSztk";
+			$url = "http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=USA&leagueName=MAJOR+LEAGUE+SOCCER&leagueName1=MAJOR+LEAGUE+SOCCER&seasonName=2013%2F2014&sortBy=R&round=$n&result=3";
+			//$url = "http://www.xscores.com/soccer/Results.jsp?sport=1&countryName=USA&leagueName=ALL+STAR+GAME&seasonName=$season&sortBy=R&round=$n&result=3#.UvjQ30KSztk";
 			echo "$url<br>";
 			$data = file_get_contents($url);
 
