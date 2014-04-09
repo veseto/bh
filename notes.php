@@ -5,7 +5,7 @@
 	if (isset($_POST['note'])) {
 		if ($mysqli->query("update userSettings set notes='".$_POST['note']."' where userId=".$_SESSION['uid'])) {
 			//echo("<script>alert('Note successfully saved')</script>");
-			echo "<div id='msg'>Note successfully saved</div>";
+			echo "<div id='msg'>Saved</div>";
 		}
 	}
 	$content = $mysqli->query("SELECT notes from userSettings where userId=".$_SESSION['uid'])->fetch_array()[0];

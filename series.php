@@ -8,13 +8,13 @@
 		$q = "select distinct playedMatches.seriesId, series.team, series.length, series.active, leagueDetails.country, leagueDetails.displayName 
 			from playedMatches left join (matches, series, leagueDetails) 
 			on (playedMatches.matchId=matches.matchId and series.seriesId=playedMatches.seriesId and matches.leagueId=leagueDetails.leagueId) 
-			where userId=".$_SESSION['uid']." and active=0 order by series.active desc, series.length desc, matches.leagueId asc, series.team asc";
+			where userId=".$_SESSION['uid']." and active=0 order by series.active desc, playedMatches.currentLength desc, matches.leagueId asc, series.team asc";
 
 	} else {
 		$q = "select distinct playedMatches.seriesId, series.team, series.length, series.active, leagueDetails.country, leagueDetails.displayName 
 			from playedMatches left join (matches, series, leagueDetails) 
 			on (playedMatches.matchId=matches.matchId and series.seriesId=playedMatches.seriesId and matches.leagueId=leagueDetails.leagueId) 
-			where userId=".$_SESSION['uid']." and active=1 order by series.active desc, series.length desc, matches.leagueId asc, series.team asc";
+			where userId=".$_SESSION['uid']." and active=1 order by series.active desc, playedMatches.currentLength desc, matches.leagueId asc, series.team asc";
 	}
 			//echo "$q<br>";
 	$res = $mysqli->query($q);
@@ -43,7 +43,7 @@
 <?php
 	$i = 1;
 	while($row = $res->fetch_array()) {
-		$tmp = $mysqli->query("SELECT bet, betSoFar from playedMatches where seriesId=".$row['seriesId']." and userId=".$_SESSION['uid']." order by currentLength desc limit 1")->fetch_array();
+		$tmp = $mysqli->query("SELECT bet, betSoFar, currentLength from playedMatches where seriesId=".$row['seriesId']." and userId=".$_SESSION['uid']." order by currentLength desc limit 1")->fetch_array();
 		?>
 		<tr>
 			<td><?php echo $i;?></td>
@@ -51,11 +51,7 @@
 			<td><?php echo $row['team'];?></td>
 			<td>
 			<?php
-				if ($row['active'] === '0') {
-					echo $row['length'] - 1;
-				} else {
-					echo $row['length'];
-				}
+				echo $tmp[2];
 			?>	
 			</td>
 			<td><?php echo $tmp[0]+$tmp[1];?></td>

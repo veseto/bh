@@ -14,11 +14,11 @@
 	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="state"></th>
 	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="min"></th>
 	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="league"></th>
+	      		<th><input type="hidden"></th>
+	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="res"></th>
 	      		<th><input type="text" name="search_engine" class="search_init" placeholder="home"></th>
 	      		<th><input type="hidden"></th>
 	      		<th><input type="text" name="search_engine" class="search_init " placeholder="away"></th>
-	      		<th><input type="hidden"></th>
-	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="res"></th>
 	      		<th><input type="hidden"></th>
 	      		<th><input type="text" name="search_engine" class="search_init shortInput" placeholder="res"></th>
 	      	</tr>
@@ -27,13 +27,14 @@
 				<th>State</th>
 				<th>Min</th>
 				<th>League</th>
+				<th>result</th>
+				<th>result</th>
 				<th>Home Team</th>
 				<th>-</th>
 				<th>Away Team</th>
 				<th>income home</th>
 				<th>income away</th>
-				<th>result</th>
-				<th>result</th>
+				
 	        </tr>
 	      </thead>
 	      <tbody>
@@ -58,8 +59,9 @@
 				'cyprus.gif'=>array('D1' => 'D1'), 
 				'slovakia.gif'=>array('D1' => 'D1'),
 				'slovenia.gif'=>array('D1' => 'D1'),
-				'japan.gif'=>array('J1' => 'J1'),
-				'russia.gif'=>array('PR' => 'PR'));
+				'russia.gif'=>array('PR' => 'PR'),
+				'usa.gif'=>array('MLS' => 'MLS'),
+				'japan.gif'=>array('J1' => 'JL1'));
 
  	$data = file_get_contents("http://78.129.174.78/soccer/soccer.jsp?sports=soccer&flag=sportData#.Ut5V72T8K2w");
 
@@ -134,11 +136,6 @@
 		><?=$stat ?></td>
 		<td><?php echo $currTime; ?></td>
 		<td><img src="<?=$href ?>"/> <?php echo $arr[$gif][$league]; ?></td>
-		<td><?php echo $home; ?></td>
-		<td>-</td>
-		<td><?php echo $away; ?></td>
-		<td><?=$betH ?></td>
-		<td><?=$betA ?></td>
 		<td <?php 
 			$short = "-";
 			$tmp = explode("-", $ft);
@@ -153,6 +150,11 @@
 			    }
 			}?>><?=$ft?></td>
 		<td><?=$short ?></td>
+		<td><?php echo $home; ?></td>
+		<td>-</td>
+		<td><?php echo $away; ?></td>
+		<td><?=$betH ?></td>
+		<td><?=$betA ?></td>
 		</tr>
 		<?
 		}
